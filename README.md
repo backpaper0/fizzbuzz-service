@@ -13,7 +13,7 @@ FIZZBUZZ_FIXEDVALUE=buzz SERVER_PORT=8280 ./mvnw spring-boot:run
 ```
 
 ```sh
-for i in {1..15}; do curl -s localhost:8080/$i; echo ""; done
+for i in {1..15}; do (curl -s localhost:8080/$i | jq -r .value); done
 ```
 
 ## Native Image

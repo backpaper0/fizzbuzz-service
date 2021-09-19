@@ -24,6 +24,6 @@ public class FixedValueController {
 	public Object fizzbuzz() {
 		String value = config.fixedValue();
 		logger.info("Fixed value: {}", value);
-		return Map.of("value", value);
+		return Map.of("value", value, "id", config.id());
 	}
 }

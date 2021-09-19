@@ -1,6 +1,7 @@
 package com.example;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
@@ -9,6 +10,7 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 @ConfigurationProperties(prefix = "fizzbuzz")
 public class FizzbuzzConfig {
 
+	private final String id = UUID.randomUUID().toString().substring(0, 8);
 	private final String fixedValue;
 	private final String fizzUri;
 	private final String buzzUri;
@@ -22,6 +24,10 @@ public class FizzbuzzConfig {
 			Objects.requireNonNull(fizzUri);
 			Objects.requireNonNull(buzzUri);
 		}
+	}
+
+	public String id() {
+		return id;
 	}
 
 	public String fixedValue() {
