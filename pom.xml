@@ -10,13 +10,14 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>fizzbuzz-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>fizzbuzz-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 		<repackage.classifier />
 		<spring-native.version>0.10.3</spring-native.version>
+		<repository.url>https://maven.pkg.github.com/backpaper0/fizzbuzz-service</repository.url>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -136,9 +137,29 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+							<file>${project.build.directory}/${project.artifactId}</file>
+							<classifier>bin</classifier>
+							<url>${repository.url}</url>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<version>${project.version}</version>
+							<packaging>exe</packaging>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
 
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>${repository.url}</url>
+		</repository>
+	</distributionManagement>
 </project>

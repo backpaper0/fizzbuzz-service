@@ -1,0 +1,30 @@
+name: Fizzbuzz service
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Native image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: DeLaGuardo/setup-graalvm@4.0
+        with:
+          graalvm: 21.2.0
+          java: java11
+      - name: Install native-image command
+        run: |
+          gu install native-image
+          native-image --version
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Maven build and deploy
+        run: |
+          GITHUB_USERNAME=backpaper0 GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} ./mvnw -Pnative -DskipTests package deploy:deploy-file -DrepositoryId=github -s settings.xml
+
