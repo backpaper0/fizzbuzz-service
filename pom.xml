@@ -120,6 +120,12 @@
 						<groupId>org.graalvm.buildtools</groupId>
 						<artifactId>native-maven-plugin</artifactId>
 						<version>${native-buildtools.version}</version>
+						<configuration>
+							<buildArgs>
+								<buildArg>--no-fallback</buildArg>
+								<buildArg>--enable-http</buildArg>
+							</buildArgs>
+						</configuration>
 						<executions>
 							<execution>
 								<id>test-native</id>
